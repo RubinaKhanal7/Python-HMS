@@ -1,0 +1,68 @@
+{% extends 'dashboard/base.html' %}
+
+{% block main %}
+            
+                    
+
+                    <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h1 class="m-0 font-weight-bold text-primary">Booked Room Details</h1>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Book Id</th>
+                                        <th>Date</th>
+                                        <th>Full Name</th>
+                                        <th>Room Id</th>
+                                        <th>Number Of Beds</th>
+                                        <th>Floor Number</th>
+                                        <th>Price</th>
+                                        <th>Select Bed</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                               
+                                <tbody>
+                                    {% for query in object_list %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ query.book_id }}</td>
+                                        <td>{{ query.date }}</td>
+                                        <td>{{ query.fullname }}</td>
+                                        <td>{{ query.room_id }}</td>
+                                        <td>{{ query.no_of_beds }}</td>
+                                        <td>{{ query.floor_number }}</td>
+                                        <td>{{ query.price }}</td>
+                                        <td>{{ query.select_bed }}</td>
+                                      
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{% url 'dashboard:bookrooms-update' query.pk %}" class="btn btn-info btn-sm">
+                                                    <i class="fas fa-pen"></i>
+
+                                                </a>
+                                                {% if not object.non_deletable %}
+                                                <form method="post" action="{% url 'dashboard:bookrooms-delete' query.pk %}">
+                                                    {% csrf_token %}
+                                                        <button class="btn btn-danger btn-sm delete-link ml-2" title="Delete">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </button>
+
+                                                </form>
+                                                    {% endif %}
+                                            </div>
+                                        </td>
+                        
+                                    </tr>
+                                    {% endfor %}
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+{% endblock main %}

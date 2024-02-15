@@ -1,0 +1,68 @@
+{% extends 'admindash/base.html' %}
+
+{% block main %}
+            
+                    
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h1 class="m-0 font-weight-bold text-primary">Room</h1>
+                                <div class="float-right">
+                                <a href="{% url 'admindash:rooms-create' %}" class="btn btn-outline-primary">
+                                    <i class="fa fa-plus"></i>&nbsp; Add Room
+                                </a>
+                            </div> 
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th>Room Id</th>
+                                            <th>Number Of Beds</th>
+                                            <th>Floor Number</th>
+                                            <th>Price</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                   
+                                    <tbody>
+                                        {% for object in object_list %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ object.room_id }}</td>
+                                            <td>{{ object.no_of_beds }}</td>
+                                            <td>{{ object.floor_number }}</td>
+                                            <td>{{ object.price }}</td>
+                                            <td>{{ object.status }}</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a href="{% url 'admindash:rooms-update' object.pk %}" class="btn btn-info btn-sm">
+                                                        <i class="fas fa-pen"></i>
+
+                                                    </a>
+                                                    {% if not object.non_deletable %}
+                                                    <form method="post" action="{% url 'admindash:rooms-delete' object.pk %}">
+                                                        {% csrf_token %}
+                                                            <button class="btn btn-danger btn-sm delete-link ml-2" title="Delete">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </button>
+
+                                                    </form>
+                                                        {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+{% endblock main %}

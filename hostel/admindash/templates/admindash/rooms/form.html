@@ -1,0 +1,23 @@
+{% extends 'admindash/base.html' %}
+
+{% block main %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Add Room Details</h6>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label>{{field.label}}{% if field.required %} *{% endif %}</label>
+                        {{ field }}
+                        <span class="form-error-text">{{ field.errors|striptags|safe }}</span>
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+{% endblock main %}

@@ -1,0 +1,54 @@
+{% extends 'dashboard/base.html' %}
+
+{% block main %}
+            
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h1 class="m-0 font-weight-bold text-primary">Book A Room</h1>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th>Room Id</th>
+                                            <th>Number Of Beds</th>
+                                            <th>Floor Number</th>
+                                            <th>Price</th>
+                                            <th>Status</th>
+                                            <th>Book</th>
+                                          
+                                           
+                                        </tr>
+                                    </thead>
+                                   
+                                    <tbody>
+                                        {% for queryset in object_list %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ queryset.room_id }}</td>
+                                            <td>{{ queryset.no_of_beds }}</td>
+                                            <td>{{ queryset.floor_number }}</td>
+                                            <td>{{ queryset.price }}</td>
+                                            <td>{{ queryset.status }}</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a href="{% url 'dashboard:bookrooms-create' %}" class="btn btn-info btn-sm">
+                                                        Book
+                                                    </a>
+                                                
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+
+                                        {% endfor %}
+                                        <tbody>
+                                            
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+{% endblock main %}
